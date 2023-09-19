@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Moovies/static/css/main.9b2118c2.css",
+    "main.js": "/Moovies/static/js/main.18c21d6e.js",
+    "index.html": "/Moovies/index.html",
+    "static/media/search.svg": "/Moovies/static/media/search.b416605642fcb3f2447edc96c1a80e05.svg",
+    "main.9b2118c2.css.map": "/Moovies/static/css/main.9b2118c2.css.map",
+    "main.18c21d6e.js.map": "/Moovies/static/js/main.18c21d6e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9b2118c2.css",
+    "static/js/main.18c21d6e.js"
+  ]
+}
