@@ -14,7 +14,13 @@ const MovieCard = ({ movie, handleSelectedMovie }) => {
   };
 
   return (
-    <div className="relative basis-[45%] min-[575px]:basis-[20%] m-2 rounded-lg overflow-hidden">
+    <div className="relative 
+    basis-[45%] 
+    sm:basis-1/5
+    min-[1500px]:inline-block
+    min-[1500px]:h-[446px] 
+    min-[1500px]:w-[300px] 
+    m-2 rounded-lg overflow-hidden">
       <img
         src={
           movie.Poster !== "N/A"
@@ -24,7 +30,7 @@ const MovieCard = ({ movie, handleSelectedMovie }) => {
         alt={movie.Title}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="object-cover min-h-[300px] hover:scale-105 hover:duration-500 duration-500 hover:cursor-pointer"
+        className="object-cover hover:scale-105 hover:duration-500 duration-500 hover:cursor-pointer"
         onClick={() => handleSelectedMovie(movie.Title)}
       />
 
@@ -46,9 +52,13 @@ const MovieCard = ({ movie, handleSelectedMovie }) => {
 
       {isDisplayTitle && (
         <div className="duration-500 absolute bottom-0 pl-4 py-4  bg-gray-800 w-full ">
-          <div className="uppercase text-stone-400 sm:text-lg">{movie.Type}</div>
-          <p className="font-bold break-words text-yellow-400 text-base min-[575px]:text-sm min-[786px]:text-lg hover:text-blue-400 hover:cursor-pointer"
-          onClick={() => handleSelectedMovie(movie.Title)}>
+          <div className="uppercase text-stone-400 sm:text-lg">
+            {movie.Type}
+          </div>
+          <p
+            className="font-bold break-words text-yellow-400 text-base min-[575px]:text-sm min-[786px]:text-lg hover:text-blue-400 hover:cursor-pointer"
+            onClick={() => handleSelectedMovie(movie.Title)}
+          >
             {movie.Title}
           </p>
         </div>

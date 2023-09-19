@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  createContext,
-} from "react";
+import React, { useEffect, useRef, useState, createContext } from "react";
 
 import MovieCard from "./Components/MovieCard";
 import { MovieStats } from "./Components/MovieStats";
@@ -45,7 +40,6 @@ function App() {
         console.error("Fetch error:", error);
       });
   };
-
 
   const defaultMoviesDisplay = async (title1, title2) => {
     setMovies([]);
@@ -202,14 +196,16 @@ function App() {
         {showMovieFilter && <MovieFilter />}
 
         {!selectedMovie && movies?.length > 0 ? (
-          <div className="flex flex-wrap justify-center gap-1 ">
-            {movies.map((item, index) => (
-              <MovieCard
-                key={index}
-                movie={item}
-                handleSelectedMovie={handleSelectedMovie}
-              />
-            ))}
+          <div className="flex justify-center">
+            <div className="flex flex-wrap justify-center gap-1 min-[1500px]:w-[1400px] min-[1500px]:block ">
+              {movies.map((item, index) => (
+                <MovieCard
+                  key={index}
+                  movie={item}
+                  handleSelectedMovie={handleSelectedMovie}
+                />
+              ))}
+            </div>
           </div>
         ) : (
           <div></div>
