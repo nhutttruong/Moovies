@@ -14,7 +14,7 @@ export const MovieStats = () => {
     });
   };
   return (
-    <div className="flex flex-col md:flex-row justify-center border border-yellow-500">
+    <div className="flex flex-col md:flex-row justify-center">
       <div className="flex flex-col justify-center m-10 mt-0 ">
         <div className="flex flex-col sm:flex-row items-left">
           <div className="max-h-[435px] flex justify-center">

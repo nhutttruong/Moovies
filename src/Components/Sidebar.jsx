@@ -7,13 +7,13 @@ const Sidebar = () => {
         divRef,
        } = useContext(ThemeContext);
   return (
-    <div ref={divRef} className="flex fixed z-30 border-2 border-blue-500 ">
+    <div ref={divRef} className="flex fixed z-30  ">
       <div
-        className={`fixed w-72 z-20 h-full bg-gray-50 border-2 overflow-scroll border-orange-500 ${
+        className={`fixed w-72 z-20 h-full bg-gray-50  overflow-scroll border-orange-500 ${
           !showSideInfo ? "left-[-18rem]" : "left-0"
         } duration-500`}
       >
-        <div className="border-b border-b-gray-300 my-4 py-4">
+        <div className=" my-4 py-4">
           <div className="flex items-center ml-8 mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
