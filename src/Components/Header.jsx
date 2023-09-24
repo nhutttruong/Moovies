@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 
-import { ThemeContext } from "../App";
+import { AppContext } from "../App";
 
 const Header = () => {
-  const { showMovieFilter, setShowMovieFilter } = useContext(ThemeContext);
+  const { showMovieFilter, setShowMovieFilter } = useContext(AppContext);
   return (
     <div className="flex gap-4  text-gray-400 font-medium pl-5  h-10 mt-2">
       <div className="relative inline-block text-left group">

@@ -1,24 +1,22 @@
 import React, { useEffect, useRef, useState, createContext } from "react";
 
-import MovieCard from "./Components/MovieCard";
-import { MovieStats } from "./Components/MovieStats";
 import Header from "./Components/Header";
 import Search from "./Components/Search";
 import Sidebar from "./Components/Sidebar";
 import MovieFilter from "./Components/MovieFilter";
+import Routerr from "./Components/Routerr";
+import { Link } from "react-router-dom";
 
 //a4e628c7
 
 const API_URL = "https://www.omdbapi.com?apikey=a4e628c7";
 
-export const ThemeContext = createContext();
+export const AppContext = createContext();
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [movieStat, setMovieStat] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [tempTerm, setTempTerm] = useState("");
-  const [selectedMovie, setSelectedMovie] = useState("");
   const [showScrollToTopBtn, setShowScrollToTopBtn] = useState(false);
   const [showSideInfo, setShowSideInfo] = useState(false);
   const [showMovieFilter, setShowMovieFilter] = useState(false);
@@ -99,28 +97,6 @@ function App() {
     }
   };
 
-  const handleSelectedMovie = async (Title) => {
-    if (!movieStat[Title]) {
-      try {
-        const response = await fetch(
-          `${API_URL}&t=${encodeURIComponent(Title.toLowerCase()).replace(
-            /%20/g,
-            "+"
-          )}`
-        );
-
-        const data = await response.json();
-
-        //Update the movieStat of the movie being selected
-        setMovieStat(data);
-
-        setSelectedMovie(data.Title);
-      } catch (error) {
-        console.error("API call failed: ", error);
-      }
-    }
-  };
-
   //Handle hitting enter after typing in a movie name
   function handleKeyPress(e) {
     if (e.key === "Enter" || e.keyCode === 13) {
@@ -132,35 +108,29 @@ function App() {
   const handleHomeClick = () => {
     defaultMoviesDisplay("batman", "dragon");
     setMovies([]);
-    setMovieStat([]);
-    setSelectedMovie("");
   };
 
   return (
-    <ThemeContext.Provider
+    <AppContext.Provider
       value={{
         movies,
         setMovies,
-        movieStat,
-        setMovieStat,
         searchTerm,
         setSearchTerm,
         tempTerm,
         setTempTerm,
-        selectedMovie,
-        setSelectedMovie,
         showScrollToTopBtn,
         setShowScrollToTopBtn,
         showSideInfo,
         setShowSideInfo,
         searchMovies,
         handleClickOutside,
-        handleSelectedMovie,
         handleKeyPress,
         handleHomeClick,
         showMovieFilter,
         setShowMovieFilter,
         divRef,
+        API_URL,
       }}
     >
       <div className=" bg-gray-900">
@@ -177,13 +147,12 @@ function App() {
           >
             <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </svg>
-          <div
-            className="hover:cursor-pointer text-left text-4xl font-bold"
-            onClick={handleHomeClick}
-          >
-            <p className="bg-gradient-to-r from-orange-400 inline-block text-transparent bg-clip-text">
-              MovieLand
-            </p>
+          <div className="hover:cursor-pointer text-left text-4xl font-bold">
+            <Link to="/">
+              <p className="bg-gradient-to-r from-orange-400 inline-block text-transparent bg-clip-text">
+                MovieLand
+              </p>
+            </Link>
           </div>
         </div>
 
@@ -195,23 +164,7 @@ function App() {
 
         {showMovieFilter && <MovieFilter />}
 
-        {!selectedMovie && movies?.length > 0 ? (
-          <div className="flex justify-center">
-            <div className="flex flex-wrap justify-center gap-1 min-[1500px]:w-[1400px] min-[1500px]:block ">
-              {movies.map((item, index) => (
-                <MovieCard
-                  key={index}
-                  movie={item}
-                  handleSelectedMovie={handleSelectedMovie}
-                />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div></div>
-        )}
-
-        {selectedMovie && <MovieStats />}
+        <Routerr />
 
         {showScrollToTopBtn && (
           <button
@@ -241,7 +194,7 @@ function App() {
           </button>
         )}
       </div>
-    </ThemeContext.Provider>
+    </AppContext.Provider>
   );
 }
 export default App;

@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../App";
+import { AppContext } from "../App";
 
 const Sidebar = () => {
-    const {
-        showSideInfo,
-        divRef,
-       } = useContext(ThemeContext);
+  const { showSideInfo, divRef } = useContext(AppContext);
   return (
     <div ref={divRef} className="flex fixed z-30  ">
       <div

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import SearchIcon from "../search.svg";
-import { ThemeContext } from "../App.js";
+import { AppContext } from "../App.js";
 
 const Search = () => {
   const {
@@ -10,7 +10,7 @@ const Search = () => {
     searchMovies,
     setSelectedMovie,
     tempTerm,
-  } = useContext(ThemeContext);
+  } = useContext(AppContext);
   return (
     <div className="m-5 mb-0 flex justify-center items-center ">
       <input

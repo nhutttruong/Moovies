@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 
 export const MovieDetail = ({ movieStat }) => {
+  if (!movieStat || movieStat.length === 0) {
+    return null;
+  }
   return (
     <div className="bg-gray-800 basis-3/4 mt-3 sm:mt-0 rounded-lg p-3 text-gray-400 ">
       <div className="uppercase text-xl text-amber-400 font-bold pb-2">
@@ -34,7 +37,11 @@ export const MovieDetail = ({ movieStat }) => {
         <div>Director:</div>
         {movieStat.Director.split(", ").map((item, index) => {
           if (index === movieStat.Director.split(", ").length - 1) {
-            return <div className="ml-1 italic" key={index}>{item}</div>;
+            return (
+              <div className="ml-1 italic" key={index}>
+                {item}
+              </div>
+            );
           }
           return <div className="ml-1 italic" key={index}>{`${item}, `}</div>;
         })}
