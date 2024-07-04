@@ -1,19 +1,21 @@
 import React, { useState, useContext } from "react";
 import { AppContext } from "../App";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDisplayTitle, setIsDisplayTitle] = useState(true);
-  const { handleSelectedMovie } = useContext(AppContext);
+  const [isAppearCompleteMark, setIsAppearCompleteMark] = useState(true);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
     setIsDisplayTitle(false);
+    setIsAppearCompleteMark(false);
   };
   const handleMouseLeave = () => {
     setIsHovered(false);
     setIsDisplayTitle(true);
+    setIsAppearCompleteMark(true);
   };
 
   return (
@@ -25,6 +27,12 @@ const MovieCard = ({ movie }) => {
     min-[1500px]:h-[446px]
     min-[1500px]:w-[300px]
     m-2 rounded-lg overflow-hidden"
+      onClick={() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }}
     >
       <Link
         to={`/${encodeURIComponent(movie.Title.toLowerCase()).replace(
@@ -45,33 +53,37 @@ const MovieCard = ({ movie }) => {
         />
       </Link>
 
-      {!movie.Year.endsWith("–") ? (
-        <span className="absolute badge text-center font-medium bg-gradient-to-r from-green-300 to-green-700">
-          COMPLETE
+      {isAppearCompleteMark && (
+        <span
+          className={`absolute badge text-center font-medium bg-gradient-to-r ${
+            !movie.Year.endsWith("–")
+              ? "from-green-300 to-green-700"
+              : "from-orange-300 to-orange-700"
+          }`}
+        >
+          {!movie.Year.endsWith("–") ? "COMPLETE" : "INCOMPLETE"}
         </span>
-      ) : (
-        <div className="absolute badge text-center font-medium bg-gradient-to-r from-orange-300 to-orange-700">
-          INCOMPLETE
-        </div>
       )}
-
       {isHovered && (
         <div className="absolute top-2 px-2 rounded-lg text-xl bg-gray-500 text-white font-bold m-2 ">
           {movie.Year}
         </div>
       )}
-
       {isDisplayTitle && (
         <div className="duration-500 absolute bottom-0 pl-4 py-4  bg-gray-800 w-full ">
           <div className="uppercase text-stone-400 sm:text-lg">
             {movie.Type}
           </div>
-          <p
-            className="font-bold break-words text-yellow-400 text-base min-[575px]:text-sm min-[786px]:text-lg hover:text-blue-400 hover:cursor-pointer"
-            onClick={() => handleSelectedMovie(movie.Title)}
+          <Link
+            to={`/${encodeURIComponent(movie.Title.toLowerCase()).replace(
+              /%20/g,
+              "+"
+            )}`}
           >
-            {movie.Title}
-          </p>
+            <p className="font-bold break-words text-yellow-400 text-base min-[575px]:text-sm min-[786px]:text-lg hover:text-blue-400 hover:cursor-pointer">
+              {movie.Title}
+            </p>
+          </Link>
         </div>
       )}
     </div>

@@ -2,6 +2,46 @@ import React, { useContext } from "react";
 
 import { AppContext } from "../App";
 
+const genres1 = [
+  "Action",
+  "Adventure",
+  "Anime",
+  "Comedy",
+  "Crime",
+  "Drama",
+  "Documentary",
+];
+
+const genres2 = [
+  "Romance",
+  "Mystery",
+  "Music",
+  "Horror",
+  "History",
+  "Fantasy",
+  "Family",
+];
+
+const countries1 = [
+  "USA",
+  "Canada",
+  "Spain",
+  "Hungary",
+  "South Korea",
+  "Japan",
+  "China",
+];
+
+const countries2 = [
+  "Brazil",
+  "India",
+  "Germany",
+  "France",
+  "Italy",
+  "Vietnam",
+  "Hongkong",
+];
+
 const Header = () => {
   const { showMovieFilter, setShowMovieFilter } = useContext(AppContext);
   return (
@@ -13,50 +53,18 @@ const Header = () => {
 
         <div className="hidden absolute left-0 py-2 w-64 bg-gray-800 z-10 group-hover:flex group-hover:rounded-sm">
           <div>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Action
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Adventure
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Anime
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Comedy
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Crime
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Documentary
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Drama
-            </a>
+            {genres1.map((genre) => (
+              <a href="#" className="block px-4 py-2 hover:bg-gray-100">
+                {genre}
+              </a>
+            ))}
           </div>
           <div>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Family
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Fantasy
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              History
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Horror
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Music
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Mystery
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Romance
-            </a>
+            {genres2.map((genre) => (
+              <a href="#" className="block px-4 py-2 hover:bg-gray-100">
+                {genre}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -67,50 +75,18 @@ const Header = () => {
 
         <div className="hidden absolute left-0 py-2 w-64 bg-gray-800 z-10 group-hover:flex group-hover:rounded-sm">
           <div>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              USA
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Canada
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Spain
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Hungary
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              South Korea
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Japan
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              China
-            </a>
+            {countries1.map((country) => (
+              <a href="#" className="block px-4 py-2 hover:bg-gray-100">
+                {country}
+              </a>
+            ))}
           </div>
           <div>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Hongkong
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Vietnam
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Italy
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              France
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Germany
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              India
-            </a>
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Brazil
-            </a>
+            {countries2.map((country) => (
+              <a href="#" className="block px-4 py-2 hover:bg-gray-100">
+                {country}
+              </a>
+            ))}
           </div>
         </div>
       </div>

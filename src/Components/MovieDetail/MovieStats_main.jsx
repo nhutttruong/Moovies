@@ -8,6 +8,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 export const MovieStats = () => {
   const location = useLocation();
+  const [isMovieStatsReady, setIsMovieStatsReady] = useState(false);
   const [movieStat, setMovieStat] = useState([]);
   const { API_URL } = useContext(AppContext);
 
@@ -18,9 +19,15 @@ export const MovieStats = () => {
       const response = await fetch(`${API_URL}&t=${id}`);
       const data = await response.json();
 
+      //handle api response error
+      if (data.Response === "False") {
+        console.error("API error:", data.Error);
+        return;
+      }
+
       // Update the movieStat of the movie being selected
       setMovieStat(data);
-      console.log("retrieving data");
+      setIsMovieStatsReady(true);
     } catch (error) {
       console.error("API call failed: ", error);
     }
@@ -32,16 +39,20 @@ export const MovieStats = () => {
   }, [location]);
 
   return (
-    <div className="flex flex-col md:flex-row justify-center">
-      <div className="flex flex-col justify-center m-10 mt-0 ">
-        <div className="flex flex-col sm:flex-row items-left">
-          <MoviePoster movieStat={movieStat} />
+    <div className="flex flex-col md:flex-row justify-center h-screen">
+      {isMovieStatsReady ? (
+        <div className="flex flex-col justify-start m-10 mt-0 ">
+          <div className="flex flex-col sm:flex-row items-left">
+            <MoviePoster movieStat={movieStat} />
 
-          <MovieDetail movieStat={movieStat} />
+            <MovieDetail movieStat={movieStat} />
+          </div>
+
+          <MoviePlot movieStat={movieStat} />
         </div>
-
-        <MoviePlot movieStat={movieStat} />
-      </div>
+      ) : (
+        <div className="w-3/5"></div>
+      )}
 
       <MovieSuggestion movieStat={movieStat} />
     </div>

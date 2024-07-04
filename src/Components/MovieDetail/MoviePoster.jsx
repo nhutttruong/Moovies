@@ -1,20 +1,23 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 
 const MoviePoster = ({ movieStat }) => {
+  const [isHovered, setIsHovered] = useState(false);
   return (
-    <div className="max-h-[435px] flex justifby-center">
-      <div className="bg-gray-700 w-64 mr-2 rounded-lg overflow-hidden">
+    <div className="flex justify-center">
+      <div
+        className={
+          "w-64 mr-2 rounded-lg overflow-hidden bg-slate-100" +
+          (isHovered ? "bg-slate-300 opacity-70 cursor-pointer" : "")
+        }
+      >
         <img
           src={movieStat.Poster}
           alt={`Poster for ${movieStat.Title}`}
           className="object-cover"
           loading="lazy"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         ></img>
-        <div className="flex justify-center">
-          <button className="bg-green-500 my-2 py-2 font-bold text-gray-100  hover:bg-green-400 rounded-lg w-28 items-center justify-center">
-            Watch
-          </button>
-        </div>
       </div>
     </div>
   );

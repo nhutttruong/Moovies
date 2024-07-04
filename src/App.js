@@ -3,9 +3,10 @@ import React, { useEffect, useRef, useState, createContext } from "react";
 import Header from "./Components/Header";
 import Search from "./Components/Search";
 import Sidebar from "./Components/Sidebar";
+import { useNavigate } from "react-router-dom";
 import MovieFilter from "./Components/MovieFilter";
-import Routerr from "./Components/Routerr";
-import { Link } from "react-router-dom";
+import Routerr from "./Components/Router";
+import { Link, Navigate } from "react-router-dom";
 
 //a4e628c7
 
@@ -20,11 +21,12 @@ function App() {
   const [showScrollToTopBtn, setShowScrollToTopBtn] = useState(false);
   const [showSideInfo, setShowSideInfo] = useState(false);
   const [showMovieFilter, setShowMovieFilter] = useState(false);
+  const navigate = useNavigate();
   const divRef = useRef(null);
   const barRef = useRef(null);
 
   const searchMovies = async (title) => {
-    fetch(`${API_URL}&s=${title}`)
+    await fetch(`${API_URL}&s=${title}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -32,42 +34,41 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        setMovies(data.Search);
+        if (data.Response == "False") {
+          setMovies([]);
+        } else {
+          setMovies(data.Search);
+        }
       })
       .catch((error) => {
-        console.error("Fetch error:", error);
+        console.error("Fetch error: ", error);
       });
   };
 
-  const defaultMoviesDisplay = async (title1, title2) => {
+  const defaultMoviesDisplay = async (titles) => {
     setMovies([]);
-    fetch(`${API_URL}&s=${title1}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setMovies((prevMovies) => [...prevMovies, ...data.Search]);
-      });
-    fetch(`${API_URL}&s=${title2}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setMovies((prevMovies) => [...prevMovies, ...data.Search]);
-      });
+    const fetchedMovies = [];
+
+    for (const title of titles) {
+      const response = await fetch(`${API_URL}&s=${title}`);
+      if (response.ok) {
+        const data = await response.json();
+        fetchedMovies.push(...data.Search);
+      }
+    }
+
+    setMovies(fetchedMovies);
+    localStorage.setItem(
+      "default_homepage_movies",
+      JSON.stringify(fetchedMovies)
+    );
   };
 
   useEffect(() => {
-    defaultMoviesDisplay("batman", "dragon");
+    defaultMoviesDisplay(["home", "avenger"]);
   }, []);
 
-  //show the button when scrolling down
+  //show to-the-top button when scrolling down
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 100) {
@@ -102,12 +103,18 @@ function App() {
     if (e.key === "Enter" || e.keyCode === 13) {
       let buttonElement = document.querySelector("img");
       buttonElement.click();
+      navigate("/Moovies");
     }
   }
 
   const handleHomeClick = () => {
-    defaultMoviesDisplay("batman", "dragon");
-    setMovies([]);
+    const defaultMovies = localStorage.getItem("default_homepage_movies");
+    if (defaultMovies) {
+      setMovies(JSON.parse(defaultMovies));
+    }
+
+    setTempTerm("");
+    setSearchTerm("");
   };
 
   return (
@@ -148,7 +155,7 @@ function App() {
             <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </svg>
           <div className="hover:cursor-pointer text-left text-4xl font-bold">
-            <Link to="/">
+            <Link to="/Moovies" onClick={handleHomeClick}>
               <p className="bg-gradient-to-r from-orange-400 inline-block text-transparent bg-clip-text">
                 MovieLand
               </p>

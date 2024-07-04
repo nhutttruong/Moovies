@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 export const MovieDetail = ({ movieStat }) => {
   if (!movieStat || movieStat.length === 0) {
@@ -17,6 +17,7 @@ export const MovieDetail = ({ movieStat }) => {
           {movieStat.Ratings[0].Value}
         </div>
       </div>
+
       <div>{`Duration: ${movieStat.Runtime}`}</div>
       <div className="flex flex-wrap pb-1">
         <div>Genre: </div>
@@ -33,6 +34,7 @@ export const MovieDetail = ({ movieStat }) => {
           );
         })}
       </div>
+
       <div className="flex flex-wrap pb-1">
         <div>Director:</div>
         {movieStat.Director.split(", ").map((item, index) => {
@@ -46,6 +48,7 @@ export const MovieDetail = ({ movieStat }) => {
           return <div className="ml-1 italic" key={index}>{`${item}, `}</div>;
         })}
       </div>
+
       <div className="pb-1">{`Actors: ${movieStat.Actors}`}</div>
       <div className="flex flex-wrap pb-1.5 items-center">
         <div>Language:</div>
@@ -58,8 +61,13 @@ export const MovieDetail = ({ movieStat }) => {
           </div>
         ))}
       </div>
-      <div className="pb-1">{`Awards: ${movieStat.Awards}`}</div>
-      <div className="">{`BoxOffice: ${movieStat.BoxOffice}`}</div>
+
+      <div className="pb-1">
+        {movieStat.Awards != "N/A" && `Awards: ${movieStat.Awards}`}
+      </div>
+      <div className="">
+        {movieStat.BoxOffice != "N/A" && `BoxOffice: ${movieStat.BoxOffice}`}
+      </div>
     </div>
   );
 };
