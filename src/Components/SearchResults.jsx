@@ -4,16 +4,24 @@ import MovieCard from "./MovieCard";
 
 const SearchResults = () => {
   const { movies, searchTerm } = useContext(AppContext);
+  console.log(movies.length);
   return (
     <div>
       <div
         className={
           "flex justify-center " +
-          (movies && movies.length > 0 ? "" : "h-screen")
+          (movies && movies.length > 1 ? "" : "h-screen")
         }
       >
         {movies && movies.length > 0 ? (
-          <div className="flex flex-wrap justify-center gap-1 min-[1500px]:w-[1400px] min-[1500px]:block ">
+          <div
+            className={
+              (movies.length === 1
+                ? "h-screen"
+                : "flex flex-wrap justify-center") +
+              " gap-1 min-[1500px]:w-[1400px] min-[1500px]:block"
+            }
+          >
             {movies.map((item, index) => (
               <MovieCard key={index} movie={item} />
             ))}

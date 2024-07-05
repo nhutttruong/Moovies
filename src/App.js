@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import MovieFilter from "./Components/MovieFilter";
 import Routerr from "./Components/Router";
 import { Link, Navigate } from "react-router-dom";
+import MovieCarousel from "./Components/MovieCarousel";
 
 //a4e628c7
 
@@ -170,6 +171,8 @@ function App() {
         <Header />
 
         {showMovieFilter && <MovieFilter />}
+
+        <MovieCarousel />
 
         <Routerr />
 

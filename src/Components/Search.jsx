@@ -24,8 +24,8 @@ const Search = () => {
           src={SearchIconEnabled}
           alt="search icon"
           onClick={() => {
-            searchMovies(tempTerm);
             setSearchTerm(tempTerm);
+            searchMovies(tempTerm);
           }}
         />
       )}

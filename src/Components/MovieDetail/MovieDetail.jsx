@@ -5,7 +5,7 @@ export const MovieDetail = ({ movieStat }) => {
     return null;
   }
   return (
-    <div className="bg-gray-800 basis-3/4 mt-3 sm:mt-0 rounded-lg p-3 text-gray-400 ">
+    <div className="bg-gray-800 basis-3/4 max-w-xl mt-3 sm:mt-0 rounded-lg p-3 text-gray-400 ">
       <div className="uppercase text-xl text-amber-400 font-bold pb-2">
         {movieStat.Title}
       </div>
@@ -35,39 +35,47 @@ export const MovieDetail = ({ movieStat }) => {
         })}
       </div>
 
-      <div className="flex flex-wrap pb-1">
-        <div>Director:</div>
-        {movieStat.Director.split(", ").map((item, index) => {
-          if (index === movieStat.Director.split(", ").length - 1) {
-            return (
-              <div className="ml-1 italic" key={index}>
-                {item}
-              </div>
-            );
-          }
-          return <div className="ml-1 italic" key={index}>{`${item}, `}</div>;
-        })}
-      </div>
+      {movieStat.Director !== "N/A" && (
+        <div className="flex flex-wrap pb-1">
+          <div>Director:</div>
+          {movieStat.Director.split(", ").map((item, index) => {
+            if (index === movieStat.Director.split(", ").length - 1) {
+              return (
+                <div className="ml-1 italic" key={index}>
+                  {item}
+                </div>
+              );
+            }
+            return <div className="ml-1 italic" key={index}>{`${item}, `}</div>;
+          })}
+        </div>
+      )}
 
-      <div className="pb-1">{`Actors: ${movieStat.Actors}`}</div>
-      <div className="flex flex-wrap pb-1.5 items-center">
-        <div>Language:</div>
-        {movieStat.Language.split(", ").map((item, index) => (
-          <div
-            key={index}
-            className="bg-green-700 text-gray-100 py-1 my-0.5 px-0.5 rounded-md ml-1.5"
-          >
-            {item}
-          </div>
-        ))}
-      </div>
+      {movieStat.Actors !== "N/A" && (
+        <div className="pb-1">{`Actors: ${movieStat.Actors}`}</div>
+      )}
 
-      <div className="pb-1">
-        {movieStat.Awards != "N/A" && `Awards: ${movieStat.Awards}`}
-      </div>
-      <div className="">
-        {movieStat.BoxOffice != "N/A" && `BoxOffice: ${movieStat.BoxOffice}`}
-      </div>
+      {movieStat.Language !== "None" && (
+        <div className="flex flex-wrap pb-1.5 items-center">
+          <div>Language:</div>
+          {movieStat.Language.split(", ").map((item, index) => (
+            <div
+              key={index}
+              className="bg-green-700 text-gray-100 p-1 my-0.5 rounded-md ml-1.5"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {movieStat.Awards !== "N/A" && (
+        <div className="pb-1">Awards: ${movieStat.Awards}</div>
+      )}
+
+      {movieStat.BoxOffice !== "N/A" && (
+        <div className="">BoxOffice: ${movieStat.BoxOffice}</div>
+      )}
     </div>
   );
 };
