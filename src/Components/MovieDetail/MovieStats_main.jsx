@@ -10,7 +10,7 @@ export const MovieStats = () => {
   const location = useLocation();
   const [isMovieStatsReady, setIsMovieStatsReady] = useState(false);
   const [movieStat, setMovieStat] = useState([]);
-  const { API_URL, movies } = useContext(AppContext);
+  const { API_URL } = useContext(AppContext);
 
   const { id } = useParams();
 

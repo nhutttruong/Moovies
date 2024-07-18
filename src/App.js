@@ -22,11 +22,13 @@ function App() {
   const [showScrollToTopBtn, setShowScrollToTopBtn] = useState(false);
   const [showSideInfo, setShowSideInfo] = useState(false);
   const [showMovieFilter, setShowMovieFilter] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const divRef = useRef(null);
   const barRef = useRef(null);
 
   const searchMovies = async (title) => {
+    setIsLoading(true);
     await fetch(`${API_URL}&s=${title}`)
       .then((response) => {
         if (!response.ok) {
@@ -39,6 +41,7 @@ function App() {
           setMovies([]);
         } else {
           setMovies(data.Search);
+          setIsLoading(false);
         }
       })
       .catch((error) => {
@@ -59,6 +62,7 @@ function App() {
     }
 
     setMovies(fetchedMovies);
+    setIsLoading(false);
     localStorage.setItem(
       "default_homepage_movies",
       JSON.stringify(fetchedMovies)
@@ -139,6 +143,7 @@ function App() {
         setShowMovieFilter,
         divRef,
         API_URL,
+        isLoading,
       }}
     >
       <div className=" bg-gray-900">

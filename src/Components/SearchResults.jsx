@@ -1,19 +1,15 @@
 import React, { useContext } from "react";
 import { AppContext } from "../App";
 import MovieCard from "./MovieCard";
+import MovieCardSkeleton from "./MovieCardSkeleton";
 
 const SearchResults = () => {
-  const { movies, searchTerm } = useContext(AppContext);
-  console.log(movies.length);
+  const { movies, searchTerm, isLoading } = useContext(AppContext);
+
   return (
     <div>
-      <div
-        className={
-          "flex justify-center " +
-          (movies && movies.length > 1 ? "" : "h-screen")
-        }
-      >
-        {movies && movies.length > 0 ? (
+      <div className="flex justify-center">
+        {searchTerm === "" ? (
           <div
             className={
               (movies.length === 1
@@ -22,6 +18,7 @@ const SearchResults = () => {
               " gap-1 min-[1500px]:w-[1400px] min-[1500px]:block"
             }
           >
+            {isLoading && <MovieCardSkeleton cards={8} />}
             {movies.map((item, index) => (
               <MovieCard key={index} movie={item} />
             ))}
