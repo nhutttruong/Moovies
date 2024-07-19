@@ -5,6 +5,7 @@ import MoviePlot from "./MoviePlot";
 import MoviePoster from "./MoviePoster";
 import MovieSuggestion from "./MovieSuggestion";
 import { useLocation, useParams } from "react-router-dom";
+import MovieStatsSkeleton from "../Skeletons/MovieStatsSkeleton";
 
 export const MovieStats = () => {
   const location = useLocation();
@@ -40,19 +41,16 @@ export const MovieStats = () => {
 
   return (
     <div className="flex flex-col md:flex-row justify-center h-screen">
-      {isMovieStatsReady ? (
-        <div className="flex flex-col justify-start m-10 mt-0 ">
-          <div className="flex flex-col sm:flex-row items-left">
-            <MoviePoster movieStat={movieStat} />
+      <div className="flex flex-col justify-start m-10 mt-0 ">
+        {!isMovieStatsReady && <MovieStatsSkeleton />}
 
-            <MovieDetail movieStat={movieStat} />
-          </div>
+        <div className="flex flex-col sm:flex-row items-left">
+          <MoviePoster movieStat={movieStat} />
 
-          <MoviePlot movieStat={movieStat} />
+          <MovieDetail movieStat={movieStat} />
         </div>
-      ) : (
-        <div className="w-3/5"></div>
-      )}
+        <MoviePlot movieStat={movieStat} />
+      </div>
 
       <MovieSuggestion movieStat={movieStat} />
     </div>

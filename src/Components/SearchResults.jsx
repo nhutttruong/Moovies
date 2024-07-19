@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../App";
 import MovieCard from "./MovieCard";
-import MovieCardSkeleton from "./MovieCardSkeleton";
+import MovieCardSkeleton from "./Skeletons/MovieCardSkeleton";
 
 const SearchResults = () => {
   const { movies, searchTerm, isLoading } = useContext(AppContext);
