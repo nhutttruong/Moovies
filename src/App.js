@@ -1,19 +1,60 @@
 import React, { useEffect, useRef, useState, createContext } from "react";
 
-import Header from "./Components/Header";
+import BelowHeader from "./Components/BelowHeader";
 import Search from "./Components/Search";
 import Sidebar from "./Components/Sidebar";
+import Header from "./Components/Header";
 import { useNavigate } from "react-router-dom";
 import MovieFilter from "./Components/MovieFilter";
 import Routerr from "./Components/Router";
-import { Link, Navigate } from "react-router-dom";
-import MovieCarousel from "./Components/MovieCarousel";
 
 //a4e628c7
 
 const API_URL = "https://www.omdbapi.com?apikey=a4e628c7";
 
 export const AppContext = createContext();
+
+const Vi = {
+  Movie: "Phim lẻ",
+  Series: "Phim bộ",
+  PlaceHolder: "Nhập một từ khóa",
+  Genre: "Thể loại",
+  Country: "Quốc gia",
+  MovieFilter: "Bộ lọc",
+  CompleteState: "Hoàn thành",
+  InCompleteState: "Chưa hoàn thành",
+  PrivacyPolicy: "Chính sách bảo mật",
+  ContentPolicy: "Chính sách nội dung",
+  SuggestForYou: "ĐỀ XUẤT CHO BẠN",
+  Year: "Năm",
+  Ratings: "Đánh giá",
+  Duartion: "Thời lượng",
+  Actors: "Diễn viên",
+  Language: "Ngôn ngữ",
+  Awards: "Danh hiệu",
+  Plot: "Cốt truyện",
+};
+
+const En = {
+  Movie: "Movie",
+  Series: "Series",
+  PlaceHolder: "Type in a keyword",
+  Genre: "Genres",
+  Country: "Countries",
+  MovieFilter: "Movie filter",
+  CompleteState: "Complete",
+  InCompleteState: "Incomplete",
+  PrivacyPolicy: "Privacy policy",
+  ContentPolicy: "Content policy",
+  SuggestForYou: "SUGGEST FOR YOU",
+  Year: "Year",
+  Ratings: "Ratings",
+  Duartion: "Duartion",
+  Actors: "Actors",
+  Language: "Language",
+  Awards: "Awards",
+  Plot: "Plot",
+};
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -37,9 +78,10 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        if (data.Response == "False") {
+        if (data.Response === "False") {
           setMovies([]);
         } else {
+          console.log(data.Search);
           setMovies(data.Search);
           setIsLoading(false);
         }
@@ -116,8 +158,8 @@ function App() {
     const defaultMovies = localStorage.getItem("default_homepage_movies");
     if (defaultMovies) {
       setMovies(JSON.parse(defaultMovies));
+      setIsLoading(false);
     }
-
     setTempTerm("");
     setSearchTerm("");
   };
@@ -146,38 +188,18 @@ function App() {
         isLoading,
       }}
     >
-      <div className=" bg-gray-900">
-        <div className="flex items-center ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="1em"
-            viewBox="0 0 448 512"
-            className="mx-5 fill-white mt-1 text-2xl hover:cursor-pointer hover:fill-yellow-400"
-            ref={barRef}
-            onClick={() => {
-              showSideInfo ? setShowSideInfo(false) : setShowSideInfo(true);
-            }}
-          >
-            <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-          </svg>
-          <div className="hover:cursor-pointer text-left text-4xl font-bold">
-            <Link to="/Moovies" onClick={handleHomeClick}>
-              <p className="bg-gradient-to-r from-orange-400 inline-block text-transparent bg-clip-text">
-                MovieLand
-              </p>
-            </Link>
-          </div>
-        </div>
+      <div className=" bg-gray-900 ">
+        <Header />
 
         <Sidebar />
 
         <Search />
 
-        <Header />
+        <BelowHeader />
 
         {showMovieFilter && <MovieFilter />}
 
-        <MovieCarousel />
+        {/* <MovieCarousel /> */}
 
         <Routerr />
 

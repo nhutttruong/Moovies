@@ -44,12 +44,14 @@ export const MovieStats = () => {
       <div className="flex flex-col justify-start m-10 mt-0 ">
         {!isMovieStatsReady && <MovieStatsSkeleton />}
 
-        <div className="flex flex-col sm:flex-row items-left">
-          <MoviePoster movieStat={movieStat} />
+        {isMovieStatsReady && (
+          <div className="flex flex-col sm:flex-row items-left">
+            <MoviePoster movieStat={movieStat} />
 
-          <MovieDetail movieStat={movieStat} />
-        </div>
-        <MoviePlot movieStat={movieStat} />
+            <MovieDetail movieStat={movieStat} />
+          </div>
+        )}
+        {isMovieStatsReady && <MoviePlot movieStat={movieStat} />}
       </div>
 
       <MovieSuggestion movieStat={movieStat} />

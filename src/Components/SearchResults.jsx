@@ -8,8 +8,12 @@ const SearchResults = () => {
 
   return (
     <div>
-      <div className="flex justify-center">
-        {searchTerm === "" ? (
+      <div
+        className={`flex justify-center${
+          movies.length === 0 ? " h-screen" : ""
+        }`}
+      >
+        {movies && movies.length !== 0 ? (
           <div
             className={
               (movies.length === 1

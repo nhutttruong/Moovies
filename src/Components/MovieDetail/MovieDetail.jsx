@@ -5,7 +5,7 @@ export const MovieDetail = ({ movieStat }) => {
     return null;
   }
   return (
-    <div className="bg-gray-800 basis-3/4 max-w-xl mt-3 sm:mt-0 rounded-lg p-3 text-gray-400 ">
+    <div className="bg-gray-800 basis-3/4 max-w-xl mt-3 sm:mt-0 rounded-lg p-3 text-gray-400  ">
       <div className="uppercase text-xl text-amber-400 font-bold pb-2">
         {movieStat.Title}
       </div>
@@ -18,7 +18,9 @@ export const MovieDetail = ({ movieStat }) => {
         </div>
       </div>
 
-      <div>{`Duration: ${movieStat.Runtime}`}</div>
+      {movieStat.Director !== "N/A" && (
+        <div>{`Duration: ${movieStat.Runtime}`}</div>
+      )}
       <div className="flex flex-wrap pb-1">
         <div>Genre: </div>
         {movieStat.Genre.split(", ").map((item, index) => {
@@ -70,11 +72,11 @@ export const MovieDetail = ({ movieStat }) => {
       )}
 
       {movieStat.Awards !== "N/A" && (
-        <div className="pb-1">Awards: ${movieStat.Awards}</div>
+        <div className="pb-1">Awards: {movieStat.Awards}</div>
       )}
 
-      {movieStat.BoxOffice !== "N/A" && (
-        <div className="">BoxOffice: ${movieStat.BoxOffice}</div>
+      {movieStat.BoxOffice !== "N/A" && movieStat.BoxOffice && (
+        <div className="">BoxOffice: {movieStat.BoxOffice}</div>
       )}
     </div>
   );
