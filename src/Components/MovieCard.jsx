@@ -37,10 +37,9 @@ const MovieCard = ({ movie }) => {
     >
       {/* link to movie detail */}
       <Link
-        to={`/${encodeURIComponent(movie.Title.toLowerCase()).replace(
-          /%20/g,
-          "+"
-        )}`}
+        to={`/Moovies/info/${encodeURIComponent(
+          movie.Title.toLowerCase()
+        ).replace(/%20/g, "+")}`}
       >
         <img
           title={movie.Title}
@@ -64,7 +63,9 @@ const MovieCard = ({ movie }) => {
               : "from-orange-300 to-orange-700"
           }`}
         >
-          {!movie.Year.endsWith("–") ? "COMPLETE" : "INCOMPLETE"}
+          {!movie.Year.endsWith("–")
+            ? `${langDict.CompleteState}`
+            : `${langDict.InCompleteState}`}
         </span>
       )}
 

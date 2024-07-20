@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import SearchIconEnabled from "../Assets/Images/search2.svg";
 import SearchIconDisabled from "../Assets/Images/search1.svg";
 import { AppContext } from "../App.js";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const {
@@ -33,15 +34,21 @@ const Search = () => {
           alt="search icon"
         />
       ) : (
-        <img
-          className="w-6 cursor-pointer"
-          src={SearchIconEnabled}
-          alt="search icon"
-          onClick={() => {
-            setSearchTerm(tempTerm);
-            searchMovies(tempTerm);
-          }}
-        />
+        <Link
+          to={`/Moovies/search/keyword/${encodeURIComponent(
+            tempTerm.toLowerCase()
+          ).replace(/%20/g, "+")}`}
+        >
+          <img
+            className="w-6 cursor-pointer"
+            src={SearchIconEnabled}
+            alt="search icon"
+            onClick={() => {
+              setSearchTerm(tempTerm);
+              searchMovies(tempTerm);
+            }}
+          />
+        </Link>
       )}
 
       {isHoverSearchIcon && (

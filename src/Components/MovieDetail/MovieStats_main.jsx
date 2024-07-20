@@ -15,6 +15,11 @@ export const MovieStats = () => {
 
   const { id } = useParams();
 
+  // Call fetchMovieDetails once the location is changed
+  useEffect(() => {
+    fetchMovieDetails();
+  }, [location]);
+
   async function fetchMovieDetails() {
     try {
       const response = await fetch(`${API_URL}&t=${id}`);
@@ -33,11 +38,6 @@ export const MovieStats = () => {
       console.error("API call failed: ", error);
     }
   }
-
-  // Call fetchMovieDetails once the location is changed
-  useEffect(() => {
-    fetchMovieDetails();
-  }, [location]);
 
   return (
     <div className="flex flex-col md:flex-row justify-center h-screen">

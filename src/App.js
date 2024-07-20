@@ -38,6 +38,8 @@ const VietLang = {
     "Tất cả video và hình ảnh được sưu tầm từ Internet và bản quyền thuộc về người sáng tạo ban đầu.",
   ContentPolicy_c:
     "Trang web này chỉ cung cấp dịch vụ trang web, không cung cấp dịch vụ lưu trữ tài nguyên và không tham gia ghi âm hoặc tải lên.",
+  HelpInfo:
+    "Trang web này được xây dựng chỉ để tìm kiếm phim và xem thông tin phim. Tính năng phát trực tuyến chưa được tích hợp trên trang này do thiếu ngân sách.",
 };
 
 const EngLang = {
@@ -64,6 +66,8 @@ const EngLang = {
     "All videos and pictures are collected from the Internet, and the copyright belongs to the original creator.",
   ContentPolicy_c:
     "This website only provides web page services, does not provide resource storage, and does not participate in recording or uploading.",
+  HelpInfo:
+    "This site is built solely for searching movies and viewing their statistics. Streaming feature is not yet integrated on this site due to a lack of budget.",
 };
 
 function App() {
@@ -77,6 +81,31 @@ function App() {
   const [isEn, setIsEn] = useState(true);
   const [langDict, setLangDict] = useState(EngLang);
   const navigate = useNavigate();
+
+  //set lang whenever there's a change
+  useEffect(() => {
+    if (isEn) {
+      setLangDict(EngLang);
+    } else {
+      setLangDict(VietLang);
+    }
+  }, [isEn]);
+
+  //set default movies
+  useEffect(() => {
+    defaultMoviesDisplay(["home", "avenger"]);
+  }, []);
+
+  //show to-the-top button when scrolling down
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        setShowScrollToTopBtn(true);
+      } else {
+        setShowScrollToTopBtn(false);
+      }
+    });
+  }, []);
 
   const searchMovies = async (title) => {
     setIsLoading(true);
@@ -121,37 +150,19 @@ function App() {
     );
   };
 
-  //set lang whenever there's a change
-  useEffect(() => {
-    if (isEn) {
-      setLangDict(EngLang);
-    } else {
-      setLangDict(VietLang);
-    }
-  }, [isEn]);
-
-  //set default movies
-  useEffect(() => {
-    defaultMoviesDisplay(["home", "avenger"]);
-  }, []);
-
-  //show to-the-top button when scrolling down
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
-        setShowScrollToTopBtn(true);
-      } else {
-        setShowScrollToTopBtn(false);
-      }
-    });
-  }, []);
-
   //Handle hitting enter after typing in a movie name
   function handleKeyPress(e) {
+    if (tempTerm === "") {
+      return;
+    }
     if (e.key === "Enter" || e.keyCode === 13) {
       let buttonElement = document.querySelector("img");
       buttonElement.click();
-      navigate("/Moovies");
+      navigate(
+        `/Moovies/search/keyword/${encodeURIComponent(
+          tempTerm.toLowerCase()
+        ).replace(/%20/g, "+")}`
+      );
     }
   }
 
@@ -190,7 +201,7 @@ function App() {
         langDict,
       }}
     >
-      <div className=" bg-gray-900 ">
+      <div className=" bg-gray-900">
         <Header />
 
         <Sidebar />

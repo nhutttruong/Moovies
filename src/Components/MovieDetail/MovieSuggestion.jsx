@@ -16,10 +16,9 @@ const MovieSuggestion = ({ movieStat }) => {
           .filter((movie) => movie.Title !== movieStat.Title)
           .map((item, index) => (
             <Link
-              to={`/${encodeURIComponent(item.Title.toLowerCase()).replace(
-                /%20/g,
-                "+"
-              )}`}
+              to={`/Moovies/info/${encodeURIComponent(
+                item.Title.toLowerCase()
+              ).replace(/%20/g, "+")}`}
               key={index}
             >
               <div

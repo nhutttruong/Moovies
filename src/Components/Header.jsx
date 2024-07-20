@@ -1,10 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../App.js";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const { showSideInfo, setShowSideInfo, handleHomeClick, isEn, setIsEn } =
-    useContext(AppContext);
+  const {
+    showSideInfo,
+    setShowSideInfo,
+    handleHomeClick,
+    isEn,
+    setIsEn,
+    langDict,
+  } = useContext(AppContext);
+
+  const [showHelp, setShowHelp] = useState(false);
+
   return (
     <div className="flex justify-between">
       <div className="flex items-center">
@@ -65,30 +74,40 @@ const Header = () => {
       </div>
       <div className=""></div>
 
-      <div className="flex items-center w-28 h-10 " title="help">
+      <div className="flex items-center w-32 h-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
           height="1.5em"
-          className="hover:cursor-pointer"
+          onMouseEnter={() => setShowHelp(true)}
+          onMouseLeave={() => setShowHelp(false)}
         >
           <path
             fill="#d2d5da"
             d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
           />
         </svg>
+
         <div
-          className="w-[24px] bg-slate-200 rounded-md px-1 mx-2 hover:cursor-pointer grid justify-items-center "
+          className="w-[24px] bg-[#d2d5da] rounded-md px-1 mx-2 hover:cursor-pointer grid justify-items-center "
           title="Language"
           onClick={() => {
-            {
-              isEn ? setIsEn(false) : setIsEn(true);
-            }
+            isEn ? setIsEn(false) : setIsEn(true);
           }}
         >
           {isEn ? "en" : "vi"}
         </div>
       </div>
+
+      {showHelp && (
+        <div
+          className="fixed right-0 translate-y-8 -translate-x-10 z-50 w-48 bg-gray-700 rounded-md text-white p-2"
+          onMouseEnter={() => setShowHelp(true)}
+          onMouseLeave={() => setShowHelp(false)}
+        >
+          {langDict.HelpInfo}
+        </div>
+      )}
     </div>
   );
 };
