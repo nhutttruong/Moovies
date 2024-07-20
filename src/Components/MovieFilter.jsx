@@ -1,68 +1,11 @@
 import React from "react";
-
-const countries = [
-  "Country",
-  "United States of America",
-  "United Kingdom",
-  "Vietnam",
-  "France",
-  "Italy",
-  "South Korea",
-  "China",
-  "Germany",
-  "Thailand",
-  "Russia",
-];
-
-const genres = [
-  "Genres",
-  "Action",
-  "Adventure",
-  "Adventure",
-  "Comedy",
-  "Crime",
-  "Horror",
-  "Music",
-  "Mystery",
-  "Romance",
-  "Science Fiction",
-  "Documentary",
-  "Drama",
-  "Family",
-];
-
-const yearRange = [
-  "Year Range",
-  "2020-now",
-  "2010-2019",
-  "2000-2009",
-  "1990-1999",
-  "1980-1989",
-  "1970-1979",
-];
-
-const languages = [
-  "Language",
-  "English",
-  "French",
-  "Vietnamese",
-  "Japanese",
-  "Spanish",
-  "Italian",
-  "Mandarin",
-  "Spanish",
-  "Korean",
-  "Thai",
-  "Portugese",
-];
-
-const sortOptions = [
-  "Sort By",
-  "Released Year latest to oldest",
-  "Released Year oldest to latest",
-  "Rating high to low",
-  "Rating low to high",
-];
+import {
+  countries,
+  genres,
+  languages,
+  yearRange,
+  sortOptions,
+} from "../utils/constants";
 
 const firstThreeOptions = [countries, genres, yearRange];
 

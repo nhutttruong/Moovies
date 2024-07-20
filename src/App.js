@@ -7,68 +7,13 @@ import Header from "./Components/Header";
 import { useNavigate } from "react-router-dom";
 import MovieFilter from "./Components/MovieFilter";
 import Routerr from "./Components/Router";
+import { VietLang, EngLang } from "./utils/constants";
 
 //a4e628c7
 
 const API_URL = "https://www.omdbapi.com?apikey=a4e628c7";
 
 export const AppContext = createContext();
-
-const VietLang = {
-  Movie: "Phim lẻ",
-  Series: "Phim bộ",
-  Placeholder: "Nhập một từ khóa",
-  Genre: "Thể loại",
-  Country: "Quốc gia",
-  MovieFilter: "Bộ lọc",
-  CompleteState: "Hoàn thành",
-  InCompleteState: "Chưa hoàn thành",
-  PrivacyPolicy: "Chính sách bảo mật",
-  ContentPolicy: "Chính sách nội dung",
-  SuggestForYou: "ĐỀ XUẤT CHO BẠN",
-  Year: "Năm",
-  Ratings: "Đánh giá",
-  Duration: "Thời lượng",
-  Actors: "Diễn viên",
-  Director: "Đạo diễn",
-  Language: "Ngôn ngữ",
-  Awards: "Danh hiệu",
-  Plot: "Cốt truyện",
-  PrivacyPolicy_c:
-    "Tất cả video và hình ảnh được sưu tầm từ Internet và bản quyền thuộc về người sáng tạo ban đầu.",
-  ContentPolicy_c:
-    "Trang web này chỉ cung cấp dịch vụ trang web, không cung cấp dịch vụ lưu trữ tài nguyên và không tham gia ghi âm hoặc tải lên.",
-  HelpInfo:
-    "Trang web này được xây dựng chỉ để tìm kiếm phim và xem thông tin phim. Tính năng phát trực tuyến chưa được tích hợp trên trang này do thiếu ngân sách.",
-};
-
-const EngLang = {
-  Movie: "Movie",
-  Series: "Series",
-  Placeholder: "Type in a keyword",
-  Genre: "Genres",
-  Country: "Countries",
-  MovieFilter: "Movie filter",
-  CompleteState: "Complete",
-  InCompleteState: "Incomplete",
-  PrivacyPolicy: "Privacy policy",
-  ContentPolicy: "Content policy",
-  SuggestForYou: "SUGGEST FOR YOU",
-  Year: "Year",
-  Ratings: "Ratings",
-  Duration: "Duration",
-  Actors: "Actors",
-  Director: "Director",
-  Language: "Language",
-  Awards: "Awards",
-  Plot: "Plot",
-  PrivacyPolicy_c:
-    "All videos and pictures are collected from the Internet, and the copyright belongs to the original creator.",
-  ContentPolicy_c:
-    "This website only provides web page services, does not provide resource storage, and does not participate in recording or uploading.",
-  HelpInfo:
-    "This site is built solely for searching movies and viewing their statistics. Streaming feature is not yet integrated on this site due to a lack of budget.",
-};
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -211,8 +156,6 @@ function App() {
         <BelowHeader />
 
         {showMovieFilter && <MovieFilter />}
-
-        {/* <MovieCarousel /> */}
 
         <Routerr />
 
