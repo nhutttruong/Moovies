@@ -4,15 +4,21 @@ import SearchIconDisabled from "../Assets/Images/search1.svg";
 import { AppContext } from "../App.js";
 
 const Search = () => {
-  const { setTempTerm, handleKeyPress, setSearchTerm, searchMovies, tempTerm } =
-    useContext(AppContext);
+  const {
+    setTempTerm,
+    handleKeyPress,
+    setSearchTerm,
+    searchMovies,
+    tempTerm,
+    langDict,
+  } = useContext(AppContext);
 
   const [isHoverSearchIcon, setIsHoverSearchIcon] = useState(false);
   return (
     <div className="m-5 mb-0 flex justify-center items-center relative">
       <input
         className=" rounded-full text-xl w-80 mr-2 p-2 text-gray-400 bg-gray-800 shadow-xl"
-        placeholder="Type in a keyword"
+        placeholder={langDict.Placeholder}
         value={tempTerm}
         onChange={(e) => setTempTerm(e.target.value)}
         onKeyDown={(e) => handleKeyPress(e)}

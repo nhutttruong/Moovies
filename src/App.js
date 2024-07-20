@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 
 import BelowHeader from "./Components/BelowHeader";
 import Search from "./Components/Search";
@@ -14,10 +14,10 @@ const API_URL = "https://www.omdbapi.com?apikey=a4e628c7";
 
 export const AppContext = createContext();
 
-const Vi = {
+const VietLang = {
   Movie: "Phim lẻ",
   Series: "Phim bộ",
-  PlaceHolder: "Nhập một từ khóa",
+  Placeholder: "Nhập một từ khóa",
   Genre: "Thể loại",
   Country: "Quốc gia",
   MovieFilter: "Bộ lọc",
@@ -28,17 +28,22 @@ const Vi = {
   SuggestForYou: "ĐỀ XUẤT CHO BẠN",
   Year: "Năm",
   Ratings: "Đánh giá",
-  Duartion: "Thời lượng",
+  Duration: "Thời lượng",
   Actors: "Diễn viên",
+  Director: "Đạo diễn",
   Language: "Ngôn ngữ",
   Awards: "Danh hiệu",
   Plot: "Cốt truyện",
+  PrivacyPolicy_c:
+    "Tất cả video và hình ảnh được sưu tầm từ Internet và bản quyền thuộc về người sáng tạo ban đầu.",
+  ContentPolicy_c:
+    "Trang web này chỉ cung cấp dịch vụ trang web, không cung cấp dịch vụ lưu trữ tài nguyên và không tham gia ghi âm hoặc tải lên.",
 };
 
-const En = {
+const EngLang = {
   Movie: "Movie",
   Series: "Series",
-  PlaceHolder: "Type in a keyword",
+  Placeholder: "Type in a keyword",
   Genre: "Genres",
   Country: "Countries",
   MovieFilter: "Movie filter",
@@ -49,11 +54,16 @@ const En = {
   SuggestForYou: "SUGGEST FOR YOU",
   Year: "Year",
   Ratings: "Ratings",
-  Duartion: "Duartion",
+  Duration: "Duration",
   Actors: "Actors",
+  Director: "Director",
   Language: "Language",
   Awards: "Awards",
   Plot: "Plot",
+  PrivacyPolicy_c:
+    "All videos and pictures are collected from the Internet, and the copyright belongs to the original creator.",
+  ContentPolicy_c:
+    "This website only provides web page services, does not provide resource storage, and does not participate in recording or uploading.",
 };
 
 function App() {
@@ -64,9 +74,9 @@ function App() {
   const [showSideInfo, setShowSideInfo] = useState(false);
   const [showMovieFilter, setShowMovieFilter] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEn, setIsEn] = useState(true);
+  const [langDict, setLangDict] = useState(EngLang);
   const navigate = useNavigate();
-  const divRef = useRef(null);
-  const barRef = useRef(null);
 
   const searchMovies = async (title) => {
     setIsLoading(true);
@@ -111,6 +121,16 @@ function App() {
     );
   };
 
+  //set lang whenever there's a change
+  useEffect(() => {
+    if (isEn) {
+      setLangDict(EngLang);
+    } else {
+      setLangDict(VietLang);
+    }
+  }, [isEn]);
+
+  //set default movies
   useEffect(() => {
     defaultMoviesDisplay(["home", "avenger"]);
   }, []);
@@ -125,25 +145,6 @@ function App() {
       }
     });
   }, []);
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
-
-  //handle clicking outside the sidebar when it's showing
-  const handleClickOutside = (e) => {
-    if (
-      divRef.current &&
-      !divRef.current.contains(e.target) &&
-      !barRef.current.contains(e.target)
-    ) {
-      setShowSideInfo(false);
-    }
-  };
 
   //Handle hitting enter after typing in a movie name
   function handleKeyPress(e) {
@@ -178,14 +179,15 @@ function App() {
         showSideInfo,
         setShowSideInfo,
         searchMovies,
-        handleClickOutside,
         handleKeyPress,
         handleHomeClick,
         showMovieFilter,
         setShowMovieFilter,
-        divRef,
         API_URL,
         isLoading,
+        isEn,
+        setIsEn,
+        langDict,
       }}
     >
       <div className=" bg-gray-900 ">

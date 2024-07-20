@@ -3,12 +3,12 @@ import { AppContext } from "../../App";
 import { Link } from "react-router-dom";
 
 const MovieSuggestion = ({ movieStat }) => {
-  const { movies } = useContext(AppContext);
+  const { movies, langDict } = useContext(AppContext);
 
   return (
     <div className=" mx-10 w-50  bg-gray-900 mb-10 rounded-lg overflow-hidden ">
       <div className="bg-gray-800 rounded-lg  text-blue-400 py-1 text-center text-lg font-medium ml-1.5">
-        SUGGEST FOR YOU
+        {langDict.SuggestForYou}
       </div>
 
       <div className="snap-y max-h-96 overflow-auto">

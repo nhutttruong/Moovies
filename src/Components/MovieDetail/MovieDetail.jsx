@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../App";
 
 export const MovieDetail = ({ movieStat }) => {
+  const { langDict } = useContext(AppContext);
   if (!movieStat || movieStat.length === 0) {
     return null;
   }
@@ -10,19 +12,19 @@ export const MovieDetail = ({ movieStat }) => {
         {movieStat.Title}
       </div>
 
-      <div className="pb-1">{`Year: ${movieStat.Year}`}</div>
+      <div className="pb-1">{`${langDict.Year}: ${movieStat.Year}`}</div>
       <div className="flex pb-1">
-        <div>Ratings:</div>
+        <div>{langDict.Ratings}:</div>
         <div className="ml-1 text-red-400 font-bold">
           {movieStat.Ratings[0].Value}
         </div>
       </div>
 
       {movieStat.Director !== "N/A" && (
-        <div>{`Duration: ${movieStat.Runtime}`}</div>
+        <div>{`${langDict.Duration}: ${movieStat.Runtime}`}</div>
       )}
       <div className="flex flex-wrap pb-1">
-        <div>Genre: </div>
+        <div>{langDict.Genre}: </div>
         {movieStat.Genre.split(", ").map((item, index) => {
           if (index === movieStat.Genre.split(", ").length - 1) {
             return (
@@ -39,7 +41,7 @@ export const MovieDetail = ({ movieStat }) => {
 
       {movieStat.Director !== "N/A" && (
         <div className="flex flex-wrap pb-1">
-          <div>Director:</div>
+          <div>{langDict.Director}:</div>
           {movieStat.Director.split(", ").map((item, index) => {
             if (index === movieStat.Director.split(", ").length - 1) {
               return (
@@ -54,12 +56,12 @@ export const MovieDetail = ({ movieStat }) => {
       )}
 
       {movieStat.Actors !== "N/A" && (
-        <div className="pb-1">{`Actors: ${movieStat.Actors}`}</div>
+        <div className="pb-1">{`${langDict.Actors}: ${movieStat.Actors}`}</div>
       )}
 
       {movieStat.Language !== "None" && (
         <div className="flex flex-wrap pb-1.5 items-center">
-          <div>Language:</div>
+          <div>{langDict.Language}:</div>
           {movieStat.Language.split(", ").map((item, index) => (
             <div
               key={index}
@@ -72,7 +74,9 @@ export const MovieDetail = ({ movieStat }) => {
       )}
 
       {movieStat.Awards !== "N/A" && (
-        <div className="pb-1">Awards: {movieStat.Awards}</div>
+        <div className="pb-1">
+          {langDict.Awards}: {movieStat.Awards}
+        </div>
       )}
 
       {movieStat.BoxOffice !== "N/A" && movieStat.BoxOffice && (

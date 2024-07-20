@@ -43,12 +43,13 @@ const countries2 = [
 ];
 
 const Header = () => {
-  const { showMovieFilter, setShowMovieFilter } = useContext(AppContext);
+  const { showMovieFilter, setShowMovieFilter, langDict } =
+    useContext(AppContext);
   return (
     <div className="flex gap-4  text-gray-400 font-medium pl-5  h-10 mt-2">
       <div className="relative inline-block text-left group">
         <a href="#" className="hover:bg-gray-600 rounded-lg text-lg">
-          Genres▾
+          {langDict.Genre}▾
         </a>
 
         <div className="hidden absolute left-0 py-2 w-64 bg-gray-800 z-10 group-hover:flex group-hover:rounded-sm">
@@ -70,7 +71,7 @@ const Header = () => {
       </div>
       <div className="relative inline-block text-left group">
         <a href="#" className="hover:bg-gray-600 rounded-lg text-lg">
-          Countries▾
+          {langDict.Country}▾
         </a>
 
         <div className="hidden absolute left-0 py-2 w-64 bg-gray-800 z-10 group-hover:flex group-hover:rounded-sm">
@@ -99,7 +100,7 @@ const Header = () => {
             : setShowMovieFilter(false);
         }}
       >
-        Movie Filter
+        {langDict.MovieFilter}
       </div>
     </div>
   );

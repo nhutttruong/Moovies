@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../App";
 
 const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDisplayTitle, setIsDisplayTitle] = useState(true);
   const [isAppearCompleteMark, setIsAppearCompleteMark] = useState(true);
+  const { langDict } = useContext(AppContext);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
